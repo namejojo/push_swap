@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:06:48 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/01 22:15:46 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/02 02:40:33 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+
+typedef struct s_array 
+{
+	int	ind_s;
+	int	ind_b;
+	int	*ret;
+	int	*ret_cmp;
+	int	*ret_temp;
+	int	flag;
+}	t_array;
 
 typedef struct s_list 
 {
@@ -51,11 +61,13 @@ int 	ft_check(char *str);
 int		ft_lstsize(t_list *lst);
 void	ft_lstclear(t_list **lst);
 void	ft_lstiter(t_list *lst, int (*f)(int));
-t_list	*ft_lstnew(char *content);
+t_list	*ft_lstnew(int content);
 
-int		*ft_atoi_pointer(int ac, char **av);
 int		ft_atoi(char *str);
 int		*ft_sort_array(int ac, int *av);
 int		*ft_format_array(int ac, char **av);
+void	*ft_calloc(size_t nmemb, size_t size);
+void	ft_bzero(void *s, size_t n);
+
 
 #endif

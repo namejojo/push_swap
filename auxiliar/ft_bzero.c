@@ -1,41 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/25 16:57:41 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/02 01:26:13 by jlima-so         ###   ########.fr       */
+/*   Created: 2025/03/24 13:54:26 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/05/02 01:55:56 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int ft_check(char *str)
+void	ft_bzero(void *s, size_t n)
 {
-	if (*str == '+' || *str == '-')
-		str++;
-	if (*str == '\0')
-		return (1);
-	while (*str)
-	{
-		if (!(*str >= '0' && *str <= '9'))
-			return (1);
-		str++;
-	}
-	return (0);
-}
-
-t_list	*ft_lstnew(int content)
-{
-	t_list	*new;
-
-	new = malloc(sizeof(t_list));
-	if (new == NULL)
-		return (NULL);
-	new->value = content;
-	new->next = NULL;
-	new->previous = NULL;
-	return (new);
+	while (n-- > 0)
+		((char *)s)[n] = 0;
 }

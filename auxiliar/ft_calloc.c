@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/25 16:57:41 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/02 01:26:13 by jlima-so         ###   ########.fr       */
+/*   Created: 2025/03/24 20:58:22 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/05/02 01:55:53 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int ft_check(char *str)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	if (*str == '+' || *str == '-')
-		str++;
-	if (*str == '\0')
-		return (1);
-	while (*str)
+	void	*ret;
+	size_t	ind;
+
+	ind = -1;
+	if (nmemb == 0 || size == 0 || ind / nmemb >= size)
 	{
-		if (!(*str >= '0' && *str <= '9'))
-			return (1);
-		str++;
+		ret = malloc(size * nmemb);
+		if (ret == NULL)
+			return (0);
+		ind = 0;
+		ft_bzero(ret, size * nmemb);
+		return (ret);
 	}
-	return (0);
-}
-
-t_list	*ft_lstnew(int content)
-{
-	t_list	*new;
-
-	new = malloc(sizeof(t_list));
-	if (new == NULL)
-		return (NULL);
-	new->value = content;
-	new->next = NULL;
-	new->previous = NULL;
-	return (new);
+	return (NULL);
 }

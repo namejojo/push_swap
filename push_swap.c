@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:47:07 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/01 23:56:14 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/02 02:38:19 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static void	init_radix(int ac, char **av, t_place *a)
 	int		ind;
 
 	array = ft_format_array(ac, av);
-	ind = 1;
+	ind = 0;
 	a->first = ft_lstnew(array[ind]);
 	if (a->first == NULL)
 		return (free (array));
 	temp = a->first;
-	while(++ind <= ac - 1)
+	while(++ind <= ac - 2)
 	{
 		temp->next = ft_lstnew(array[ind]);
 		if (temp->next == NULL)
@@ -38,16 +38,18 @@ static void	init_radix(int ac, char **av, t_place *a)
 static void	init_mech(int ac, char **av, t_place *a)
 {
 	t_list	*temp;
+	int		*array;
 	int		ind;
 
+	array = ft_format_array(ac, av);
 	ind = 1;
-	a->first = ft_lstnew(av[ind]);
+	a->first = ft_lstnew(array[ind]);
 	if (a->first == NULL)
 		return (free (a));
 	temp = a->first;
-	while(av[++ind] && ind <= ac - 1)
+	while(array[++ind] && ind <= ac - 1)
 	{
-		temp->next = ft_lstnew(av[ind]);
+		temp->next = ft_lstnew(array[ind]);
 		if (temp->next == NULL)
 			return (ft_lstclear(&a->first), free (a));
 		temp->next->previous = temp;

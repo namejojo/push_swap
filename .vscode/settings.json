@@ -9,6 +9,8 @@
 		"ostream": "c",
 		"streambuf": "c",
 		"functional": "c",
-		"tuple": "c"
+		"tuple": "c",
+		"stdio.h": "c",
+		"libft.h": "c"
 	}
 }

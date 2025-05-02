@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:46:55 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/01 23:27:14 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/02 02:45:32 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	*ft_sort_array(int ac, int *av)
 	return (av);
 }
 
-int	*ft_atoi_pointer(int ac, char **av)
+static int	*ft_atoi_pointer(int ac, char **av)
 {
 	int	*ret;
 	int ind;
@@ -56,28 +56,35 @@ int	*ft_atoi_pointer(int ac, char **av)
 	return (ret);
 }
 
+static void initialize(t_array *data, int ac, char **av)
+{
+	data->ret = malloc(sizeof(int) * ac - 2);
+	if (data->ret == NULL)
+		return ;
+	data->ret_temp= ft_atoi_pointer(ac, av);
+	if (data->ret_temp== NULL)
+		return (free(data->ret));
+	data->ret_cmp = ft_atoi_pointer(ac, av);
+	if (data->ret_cmp == NULL)
+		return (free (data->ret), free (data->ret_temp));
+	data->ret_cmp = ft_sort_array(ac, data->ret_cmp);
+}
+
 int *ft_format_array(int ac, char **av)
 {
-	int	ind_l;
-	int	ind_b;
-	int	*ret;
-	int	*ret_cmp;
+	t_array data;
 
-	ret = ft_atoi_pointer(ac, av);
-	if (ret == NULL)
-		return (NULL);
-	ret_cmp = ft_atoi_pointer(ac, av);
-	if (ret_cmp == NULL)
-		return (free (ret), NULL);
-	ret_cmp = ft_sort_array(ac, ret_cmp);
-	ind_b = -1;
-	while (++ind_b < ac - 1)
+	initialize (&data, ac, av);
+	data.ind_b = 0;
+	while (++data.ind_b < ac - 1)
 	{
-		ind_l = -1;
-		while (++ind_l < ac - 1)
-			if (ret[ind_l] == ret_cmp[ind_b])
-				ret[ind_l] = ind_b;
+		data.ind_s = -1;
+		while (++data.ind_s < ac - 1)
+			if (data.ret_temp[data.ind_s] == data.ret_cmp[data.ind_b]\
+					 && data.ret[data.ind_s] == 0)
+				data.ret[data.ind_s] = data.ind_b;
 	}
-	free(ret_cmp);
-	return (ret);
+	free(data.ret_cmp);
+	free(data.ret_temp);
+	return (data.ret);
 }
