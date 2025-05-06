@@ -6,77 +6,66 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:47:07 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/02 02:38:19 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:00:03 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	init_radix(int ac, char **av, t_place *a)
+/* static void	init(int ac, char **av, t_table *a)
 {
 	t_list	*temp;
 	int		*array;
 	int		ind;
 
-	array = ft_format_array(ac, av);
+	a->size = 0;
+	ft_format_array(av, a, NULL);
 	ind = 0;
-	a->first = ft_lstnew(array[ind]);
-	if (a->first == NULL)
+	a->head = ft_lstnew(array[ind], );
+	if (a->head == NULL)
 		return (free (array));
-	temp = a->first;
-	while(++ind <= ac - 2)
+	temp = a->head;
+	while (++ind <= ac - 2)
 	{
 		temp->next = ft_lstnew(array[ind]);
 		if (temp->next == NULL)
-			return (free (array), ft_lstclear(&a->first), free (a));
+			return (free (array), ft_lstclear(&a->head), free (a));
 		temp->next->previous = temp;
 		temp = temp->next;
 	}
-	a->last = temp;
+	a->tail = temp;
+} */
+
+static t_table	*init(t_table *a)
+{
+	a->head = NULL;
+	a->tail = NULL;
+	a->size = -1;
+	return (a);
 }
 
-static void	init_mech(int ac, char **av, t_place *a)
-{
-	t_list	*temp;
-	int		*array;
-	int		ind;
 
-	array = ft_format_array(ac, av);
-	ind = 1;
-	a->first = ft_lstnew(array[ind]);
-	if (a->first == NULL)
-		return (free (a));
-	temp = a->first;
-	while(array[++ind] && ind <= ac - 1)
-	{
-		temp->next = ft_lstnew(array[ind]);
-		if (temp->next == NULL)
-			return (ft_lstclear(&a->first), free (a));
-		temp->next->previous = temp;
-		temp = temp->next;
-	}
-	a->last = temp;
-}
-
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_place *a;
-	// t_place *b;
-	
+	t_table	*a;
+	// t_table	*b;
+
 	if (ac < 2)
 		return (ft_printf("ERROR"));
-	a = malloc(sizeof(t_place));
+	a = malloc(sizeof(t_table));
 	if (a == NULL)
 		return (ft_printf("Memory Error"));
-	if (ac <= 100)
-		init_radix(ac, av, a);
-	else
-		init_mech(ac, av, a);
-	if (a->first == NULL)
-		return (ft_printf("ERROR"));
+	if (ft_format_array(++av, init(a)))
+		return (free (a), ft_printf("ERROR"));
+	if (a->head == NULL)
+		return (free (a), ft_printf("ERROR"));
 	
-	ft_lstiter(a->first, ft_putnbr); // printing values
-	
-	ft_lstclear(&a->first);
+	// checking if correct
+	ft_lstiter(a->head, ft_putnbr);
+	ft_printf("size is: %d\n", ft_lstsize(a->head));
+	ft_printf("head is: %d\n", (a->head->value));
+	ft_printf("tail is: %d\n", (a->tail->value));
+	// check done
+	ft_lstclear(&a->head);
 	free (a);
 }

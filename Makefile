@@ -1,11 +1,12 @@
 SRC_DIR=srcs/
 AUX_DIR=auxiliar/
 LST_DIR=listas/
-
+PAR_DIR=parsing/
 BONUS_DIR=bonus/
 
 SRC_FILES=  $(wildcard ${SRC_DIR}*.c)\
 			$(wildcard ${AUX_DIR}*.c)\
+			$(wildcard ${PAR_DIR}*.c)\
 			$(wildcard ${LST_DIR}*.c)
 
 OBJ_FILES=${SRC_FILES:.c=.o}
@@ -22,7 +23,7 @@ CC=cc
 
 CFLAGS= -Wall -Wextra -Werror
 
-all: ${NAME}
+all: ${NAME} push_swap
 
 push_swap:
 	${CC} ${CFLAGS} push_swap.c ${NAME} -o push_swap

@@ -6,13 +6,13 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:57:41 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/02 01:26:13 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:01:01 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int ft_check(char *str)
+int	ft_check(char *str)
 {
 	if (*str == '+' || *str == '-')
 		str++;
@@ -27,15 +27,18 @@ int ft_check(char *str)
 	return (0);
 }
 
-t_list	*ft_lstnew(int content)
+t_list	*ft_lstnew(char *content, t_list *last)
 {
 	t_list	*new;
 
+	
+	if (content == NULL || ft_check(content))
+		return (NULL);
 	new = malloc(sizeof(t_list));
 	if (new == NULL)
 		return (NULL);
-	new->value = content;
+	new->value = ft_atoi(content);
 	new->next = NULL;
-	new->previous = NULL;
+	new->previous = last;
 	return (new);
 }

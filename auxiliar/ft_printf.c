@@ -6,13 +6,13 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 10:31:48 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/30 18:34:31 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/02 03:13:42 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-static int	ft_check(char *c, va_list args)
+static int	pf_check(char *c, va_list args)
 {
 	if (*c == 'c')
 		return (ft_putchar(va_arg(args, int)));
@@ -50,7 +50,7 @@ int	ft_printf(const char *str, ...)
 		if (*str != '%')
 			n.len = n.len + ft_putchar(*str);
 		else if (*(str++) == '%')
-			n.len = n.len + ft_check((char *)str, args);
+			n.len = n.len + pf_check((char *)str, args);
 		if (n.temp > n.len)
 			return (-1);
 		str++;

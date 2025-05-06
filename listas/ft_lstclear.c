@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:21:27 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/04/30 18:24:40 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/02 03:01:08 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_lstclear(t_list **lst)
 {
 	t_list	*next_node;
-	
+
 	if (lst == NULL || *lst == NULL)
 		return ;
 	while ((*lst)->next != NULL)
