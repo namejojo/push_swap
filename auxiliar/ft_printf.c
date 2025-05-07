@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 10:31:48 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/02 03:13:42 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:30:16 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	pf_check(char *c, va_list args)
 	else if (*c == 'p')
 		return (ft_putptr(va_arg(args, unsigned long int), "0123456789abcdef"));
 	else if (*c == 'd' || *c == 'i')
-		return (ft_putnbr(va_arg(args, int)));
+		return (ft_putnbr(va_arg(args, long)));
 	else if (*c == 'u')
 		return (ft_put_unsnbr(va_arg(args, unsigned int)));
 	else if (*c == 'X')

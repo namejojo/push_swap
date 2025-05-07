@@ -6,16 +6,16 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 12:14:12 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/06 16:13:22 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:14:26 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_atoi(char *str)
+long	ft_atol(char *str)
 {
-	int	sign;
-	int	num;
+	int		sign;
+	long	num;
 
 	sign = 1;
 	num = 0;

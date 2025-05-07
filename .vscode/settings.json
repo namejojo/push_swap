@@ -11,6 +11,9 @@
 		"functional": "c",
 		"tuple": "c",
 		"stdio.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"hm": "c",
+		"random": "c",
+		"limits": "c"
 	}
 }
