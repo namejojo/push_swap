@@ -3,10 +3,12 @@ AUX_DIR=auxiliar/
 LST_DIR=listas/
 PAR_DIR=parsing/
 BONUS_DIR=bonus/
+INS_DIR=instructions/
 
 SRC_FILES=  $(wildcard ${SRC_DIR}*.c)\
 			$(wildcard ${AUX_DIR}*.c)\
 			$(wildcard ${PAR_DIR}*.c)\
+			$(wildcard ${INS_DIR}*.c)\
 			$(wildcard ${LST_DIR}*.c)
 
 OBJ_FILES=${SRC_FILES:.c=.o}

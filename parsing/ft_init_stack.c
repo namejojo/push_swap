@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:46:55 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/07 17:22:45 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/08 18:48:07 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ static int	ft_wrd_count(char *str, char c)
 	ind = 0;
 	while (str[ind])
 	{
-		if (str[ind] != c && (str[ind + 1] == '\0'
-				|| str[ind + 1] == c))
+		if (str[ind] != c && (str[ind + 1] == '\0' || str[ind + 1] == c))
 			count++;
 		ind++;
 		if (count > 1)
@@ -30,6 +29,15 @@ static int	ft_wrd_count(char *str, char c)
 	}
 	return (0);
 }
+
+void	update_value(t_table *a, t_list *temp)
+{
+	if (a->max == NULL || a->max->value < temp->value)
+		a->max = temp;
+	if (a->min == NULL || a->min->value > temp->value)
+		a->min = temp;
+}
+
 static int	check(t_table *a)
 {
 	t_list	*temp;
@@ -41,10 +49,7 @@ static int	check(t_table *a)
 			return (ft_lstclear(&a->head), 1);
 		temp = temp->next;
 	}
-	if (a->max < temp->value)
-		a->max = temp->value;
-	if (a->min > temp->value)
-		a->min = temp->value;
+	update_value(a, temp);
 	return (0);
 }
 

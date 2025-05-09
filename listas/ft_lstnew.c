@@ -6,18 +6,11 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:57:41 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/07 17:46:34 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:20:41 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
-static char	*skip_spaces(char *str)
-{
-	while (*str == ' ' && *str)
-		str++;
-	return (str);
-}
 
 int	ft_check(char *str)
 {
@@ -29,7 +22,6 @@ int	ft_check(char *str)
 		str++;
 	if (*str == '\0')
 		return (1);
-	str = skip_spaces(str);
 	while (*str == '0' && *str)
 		str++;
 	while (*str)
@@ -37,6 +29,7 @@ int	ft_check(char *str)
 		if (!(*str >= '0' && *str <= '9'))
 			return (1);
 		str++;
+		str = skip_spaces(str);
 		count++;
 		if (count > 10)
 			return (1);

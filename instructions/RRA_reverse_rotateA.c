@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   RRA_reverse_rotateA.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/25 17:27:10 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/08 14:25:57 by jlima-so         ###   ########.fr       */
+/*   Created: 2025/05/08 19:11:02 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/05/09 19:19:01 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_lstiter(t_list *lst, int (*f)(long))
+void	rra(t_table *a)
 {
-	int	ret;
-	
-	ret = 0;
-	if (lst == NULL || f == NULL)
+	if (a == NULL || a->head == a->tail)
 		return ;
-	while (lst != NULL)
-	{
-		ret += f(lst->value);
-		lst = lst->next;
-	}
+	a->head->previous = a->tail;
+	a->tail = a->tail->previous;
+	a->head->previous->next = a->head;
+	a->head = a->head->previous;
+	a->head->previous = NULL;
+	a->tail->next = NULL;
+	write (1, "RRA\n", 4);
 }

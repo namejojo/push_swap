@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_skipspaces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/25 17:27:10 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/08 14:25:57 by jlima-so         ###   ########.fr       */
+/*   Created: 2025/05/08 11:20:52 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/05/08 11:20:54 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
-
-void	ft_lstiter(t_list *lst, int (*f)(long))
+char	*skip_spaces(char *str)
 {
-	int	ret;
-	
-	ret = 0;
-	if (lst == NULL || f == NULL)
-		return ;
-	while (lst != NULL)
-	{
-		ret += f(lst->value);
-		lst = lst->next;
-	}
+	while (*str == ' ' && *str)
+		str++;
+	return (str);
 }

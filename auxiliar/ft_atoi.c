@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 12:14:12 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/07 16:14:26 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:22:15 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ long	ft_atol(char *str)
 
 	sign = 1;
 	num = 0;
+	str = skip_spaces(str);
 	if (*str == '+' || *str == '-')
 	{
 		if (*str == '-')

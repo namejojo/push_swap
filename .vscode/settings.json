@@ -14,6 +14,7 @@
 		"libft.h": "c",
 		"hm": "c",
 		"random": "c",
-		"limits": "c"
+		"limits": "c",
+		"unistd.h": "c"
 	}
 }

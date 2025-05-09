@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   RRR_double_reverse_rotate.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/25 17:27:10 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/08 14:25:57 by jlima-so         ###   ########.fr       */
+/*   Created: 2025/05/08 19:21:16 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/05/08 19:21:33 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_lstiter(t_list *lst, int (*f)(long))
+void	rrr(t_table *a, t_table *b)
 {
-	int	ret;
-	
-	ret = 0;
-	if (lst == NULL || f == NULL)
-		return ;
-	while (lst != NULL)
-	{
-		ret += f(lst->value);
-		lst = lst->next;
-	}
+	ra(a);
+	rb(b);
 }
