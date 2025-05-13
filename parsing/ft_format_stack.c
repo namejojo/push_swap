@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:25:57 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/08 15:10:51 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/13 18:45:56 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@ static void	ft_lstadd(t_table *a)
 		return ;
 	while (temp != NULL)
 	{
-		temp->value = temp->value + INT_MAX + 1;
+		temp->value = temp->value + 2147483650;
 		temp = temp->next;
 	}
 }
 
-void	format_stack(t_table *a, t_table *b)
+void	format_stack(t_table *a)
 {
 	t_list	*curr_lst;
 	t_list	*temp;
 	long	ind;
-	int		avg;
+	int		size;
 
 	ft_lstadd(a);
-	ind = -1;
-	avg = 0;
-	while (++ind < a->tail->index)
+	ind = 0;
+	size = ft_lstsize(a->head);
+	while (++ind < size)
 	{
 		curr_lst = a->max;
 		temp = a->head;
@@ -47,10 +47,7 @@ void	format_stack(t_table *a, t_table *b)
 			temp = temp->next;
 		}
 		curr_lst->value = ind;
-		avg += ind;
 	}
-	a->max->value = ft_lstsize(a->head) - 1;
-	avg += a->max->value;
-	a->avg = avg / ft_lstsize (a->head);
-	b->avg = a->avg;
+	a->size = ft_lstsize(a->head);
+	a->max->value = a->size;
 }

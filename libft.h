@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:06:48 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/09 21:46:53 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/13 21:58:07 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ typedef struct s_split
 	int		indv;
 }				t_split;
 
+typedef struct s_find
+{
+	long	curr_favor;
+	int		temp_favor;
+	int		op;
+	int		rt;
+}	t_find;
+
 typedef struct s_array
 {
 	// int	ind_s;
@@ -42,17 +50,17 @@ typedef struct s_list
 	struct s_list	*next;
 	struct s_list	*previous;
 	long int		value;
-	int				index;
+	int				index; // dont need this
 }				t_list;
 
 typedef struct s_table
 {
-	t_list	*max;
-	t_list	*min;
+	t_list	*max; // dont need this
+	t_list	*min; // dont need this
 	t_list	*head;
 	t_list	*tail;
 	int		size;
-	int		avg;
+	int		avg; // dont need this
 }				t_table;
 
 typedef struct s_numb
@@ -60,6 +68,15 @@ typedef struct s_numb
 	int	len;
 	int	temp;
 }			t_numb;
+
+typedef struct s_organize
+{
+	t_list	*where_fr_a;
+	t_list	*where_to_b;
+	int	a_path;
+	int	b_path;
+	int	sum;
+} t_organize;
 
 // ft_printf
 int		ft_putchar(char c);
@@ -102,10 +119,12 @@ void	rrr(t_table *a, t_table *b);
 
 // parsing functions
 int		ft_init_stack(char **av, t_table *a);
-void	format_stack(t_table *a, t_table *b);
+void	format_stack(t_table *a);
 // sorting function
+int		check_if_sorted(t_table *a, t_table *b);
 void	ft_sort_stack(t_table *a, t_table *b);
 // DELETE
-void print_value (t_table *a, t_table *b);
+void	print_value (t_table *a, t_table *b);
+int		find(t_list *a, t_list *b, int max, int size);
 
 #endif

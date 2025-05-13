@@ -15,6 +15,10 @@
 		"hm": "c",
 		"random": "c",
 		"limits": "c",
-		"unistd.h": "c"
+		"unistd.h": "c",
+		"system_error": "c",
+		"type_traits": "c",
+		"utility": "c",
+		"initializer_list": "c"
 	}
 }

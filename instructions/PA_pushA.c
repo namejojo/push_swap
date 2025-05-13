@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 15:29:59 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/09 21:46:21 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:47:45 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void pa(t_table *b, t_table *a)
 		b->head->previous->next = b->head;
 		b->head = b->head->previous;
 	}
-	
-	
+	a->size--;
+	b->size++;
 	write (1, "PA\n", 3);
 }

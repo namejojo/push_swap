@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 15:25:21 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/08 19:12:59 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:48:02 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void pb(t_table *a, t_table *b)
 		b->head->previous->next = b->head;
 		b->head = b->head->previous;
 	}
-	update_value(b, b->head);
+	a->size--;
+	b->size++;
 	write (1, "PB\n", 3);
 }

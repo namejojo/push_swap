@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:47:07 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/09 21:30:23 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/13 22:25:13 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_table	*init_table(t_table *a)
 	a->tail = NULL;
 	a->max = NULL;
 	a->min = NULL;
+	a->size = 0;
 	return (a);
 }
 
@@ -51,24 +52,29 @@ void print_value (t_table *a, t_table *b) // delete
 		else
 			ft_printf("\n");
 	}
-	ft_printf("\n\n");
-
-	printf("median is: %d\n\n", b->avg);
+	ft_printf("\n");
+	ft_printf("--------------------------------\n");
 }
 
-static int	check_if_sorted(t_table *a, t_table *b)
+int	check_if_sorted(t_table *a, t_table *b)
 {
 	t_list	*temp;
+	int		flag;
 
-	if (b != NULL)
+	flag = 0;
+	if (b->head != NULL)
 		return (1);
 	temp = a->head;
-	while (temp->next == NULL)
+	while (temp->next != NULL)
 	{
-		if (temp->value != temp->next->value - 1)
+		if (temp->next->value != temp->value + 1 && flag == 1)
 			return (1);
-		 temp = temp->next;
+		if (temp->next->value != temp->value + 1)
+			flag = 1;
+		temp = temp->next;
 	}
+	while (a->head->value != 1 && flag == 1)
+		ra(a);
 	return (0);
 }
 
@@ -87,12 +93,13 @@ int	main(int ac, char **av)
 		return (printf("Memory Error"));
 	if (ft_init_stack(++av, a))
 		return (free (a), printf("ulala"));
-	format_stack(a, b);
+	format_stack(a);
+	print_value(a, b);
 	while (check_if_sorted(a, b))
 		ft_sort_stack(a, b);
+	print_value(a, b);
 	ft_lstclear(&a->head);
 	free (a);
-	
 }
 
 // int *var(void)
