@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:47:43 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/13 22:26:39 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/13 23:30:19 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,16 @@ int	find(t_list *a, t_list *b, int max, int size)
 	while (b)
 	{
 		temp_favor = find2(a, b, max);
+		if (ops < size / 2)
+			temp_favor += ops;
+		else
+			temp_favor += size / 2 - ops % (size / 2);
 		if (temp_favor < curr_favor)
 		{
 			curr_favor = temp_favor;
 			ret = ops;
 		}
 		b = b->next;
-		if (ops < size / 2)
-			temp_favor += ops;
-		else
-			temp_favor += size / 2 - ops % (size / 2);
 		ops++;
 	}
 	return (ret + 1);
@@ -89,16 +89,21 @@ int	find(t_list *a, t_list *b, int max, int size)
 static void	push_n_organize (t_table *a, t_table *b)
 {
 	int flag;
+	int	temp;
 
+	print_value(a, b);
 	flag = find(a->head, b->head, a->max->value, b->size);
+	temp = flag;
 	if (flag <= b->size / 2)
 		while (flag-- > 1)
 			rb(b);
 	else 
+	{
 		while (flag++ < b->size + 1)
 			rrb(b);
+	}
 	pb(a, b);
-	if (b->head->value < b->head->next->value)
+	if (temp < b->size + 1 && b->head->value < b->head->next->value)
 		sb(b);
 }
 
@@ -126,4 +131,5 @@ void	ft_sort_stack(t_table *a, t_table *b)
 		if (a->size == 3)
 			organize_3(a);
 	}
+	// pull_n_organize(a, b);
 }
