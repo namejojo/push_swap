@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:06:48 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/13 21:58:07 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/18 03:28:19 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,12 @@ typedef struct s_find
 	int		rt;
 }	t_find;
 
-typedef struct s_array
+typedef struct s_range
 {
-	// int	ind_s;
-	// int	ind_b;
-	// int	*ret;
-	// int	*ret_cmp;
-	// int	*ret_temp;
-	// int	flag;
-}	t_array;
+	int min;
+	int max;
+	int delta;
+}	t_range;
 
 typedef struct s_list
 {
@@ -71,11 +68,11 @@ typedef struct s_numb
 
 typedef struct s_organize
 {
-	t_list	*where_fr_a;
-	t_list	*where_to_b;
-	int	a_path;
-	int	b_path;
-	int	sum;
+	int		flag;
+	t_list	*target_max;
+	t_list	*target;
+	int		target_ops;
+	int		target_max_ops;
 } t_organize;
 
 // ft_printf
@@ -124,7 +121,7 @@ void	format_stack(t_table *a);
 int		check_if_sorted(t_table *a, t_table *b);
 void	ft_sort_stack(t_table *a, t_table *b);
 // DELETE
-void	print_value (t_table *a, t_table *b);
-int		find(t_list *a, t_list *b, int max, int size);
+void		print_value (t_table *a, t_table *b);
+t_organize	find_target(t_list *a, t_list *b, t_list *min);
 
 #endif
