@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:57:41 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/08 11:20:41 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/01 01:23:18 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,6 @@ t_list	*ft_lstnew(char *content, t_list *last)
 	new->value = temp;
 	new->next = NULL;
 	new->previous = last;
-	if (last == NULL)
-		new->index = 0;
-	else
-		new->index = last->index + 1;
+	new->flag = 10;
 	return (new);
 }

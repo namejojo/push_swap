@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:06:48 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/18 03:28:19 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:56:20 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ typedef struct s_list
 	struct s_list	*next;
 	struct s_list	*previous;
 	long int		value;
-	int				index; // dont need this
+	int				flag;
+	int				path;
 }				t_list;
 
 typedef struct s_table

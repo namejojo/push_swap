@@ -19,6 +19,7 @@
 		"system_error": "c",
 		"type_traits": "c",
 		"utility": "c",
-		"initializer_list": "c"
+		"initializer_list": "c",
+		"algorithm": "c"
 	}
 }

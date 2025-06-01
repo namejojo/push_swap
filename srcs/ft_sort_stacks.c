@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:47:43 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/18 03:41:52 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/05/31 18:05:39 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,32 +61,8 @@ t_organize find_b_target(t_list *a, t_list *b, t_list *min)
 	return (ret);
 }
 
-static void	push_n_organize (t_table *a, t_table *b)
+static void	put_b(t_table *a, t_table *b, t_organize curr)
 {
-	t_organize	temp;
-	t_organize	curr;
-	t_list		*la;
-	int			ops;
-
-	ops = 0;
-	la = a->head;
-	curr.target_ops = INT_MAX;
-	while (la)
-	{
-		temp = find_b_target(la, b->head, a->min);
-		if (temp.flag == 0)
-		{
-			temp.target = temp.target_max;
-			temp.target_ops = temp.target_max_ops;
-		}
-		if (temp.target_ops + ops++ < curr.target_ops)
-		{
-			curr = temp;
-			curr.target_max_ops = ops;
-			curr.target_max = la;
-		}
-		la = la->next;
-	}
 	if (curr.target_max_ops < b->size / 2)
 		while (curr.target_max->value != a->head->value)
 			ra(a);
@@ -101,6 +77,7 @@ static void	push_n_organize (t_table *a, t_table *b)
 			rrb(b);
 	pb(a, b);
 }
+
 
 t_organize find_a_target(t_list *a, t_list *b, t_list *max)
 {
@@ -129,46 +106,86 @@ t_organize find_a_target(t_list *a, t_list *b, t_list *max)
 	return (ret);
 }
 
-static void	pull_n_organize (t_table *a, t_table *b)
+static void	push_n_organize (t_table *a, t_table *b)
 {
 	t_organize	temp;
 	t_organize	curr;
-	t_list		*lb;
+	t_list		*la;
 	int			ops;
 
 	ops = 0;
-	lb = b->head;
+	la = a->head;
 	curr.target_ops = INT_MAX;
-	while (lb)
+	while (la)
 	{
-		temp = find_a_target(a->head, lb, a->max);
+		temp = find_b_target(la, b->head, a->min);
 		if (temp.flag == 0)
 		{
 			temp.target = temp.target_max;
 			temp.target_ops = temp.target_max_ops;
 		}
+		// if (temp.flag == 0)
+			// temp.target = temp.target_max;
+		// if (temp.flag == 0)
+			// temp.target_ops = temp.target_max_ops;
 		if (temp.target_ops + ops++ < curr.target_ops)
 		{
 			curr = temp;
 			curr.target_max_ops = ops;
-			curr.target_max = lb;
+			curr.target_max = la;
 		}
-		lb = lb->next;
+		la = la->next;
 	}
-	if (curr.target_max_ops < b->size / 2)
-		while (curr.target_max->value != b->head->value)
-			rb(b);
-	else
-		while (curr.target_max->value != b->head->value)
-			rrb(b);
-	if (curr.target_ops < b->size / 2)
-		while (a->head->value != curr.target->value)
-			ra(a);
-	else
-		while (a->head->value != curr.target->value)
-			rra(a);
-	pa(a, b);
+	temp = find_a_target(la, b->head, a->min);
+	ft_printf("temp.flag=%d, temp.target=%d, temp.target_max=%d, temp.target_max_ops=%d, temp.target_ops=%d \n", temp.flag, temp.target->value, temp.target_max->value, temp.target_max_ops, temp.target_ops);
+	ft_printf("curr.flag=%d, curr.target=%d, curr.target_max=%d, curr.target_max_ops=%d, curr.target_ops=%d \n", curr.flag, curr.target->value, curr.target_max->value, curr.target_max_ops, curr.target_ops);
+	// if (curr.target < temp.target)
+		put_b(a, b, curr);
+	// else
+		// put_a(a, b, temp);
 }
+
+// 
+// static void	pull_n_organize (t_table *a, t_table *b)
+// {
+	// t_organize	temp;
+	// t_organize	curr;
+	// t_list		*lb;
+	// int			ops;
+// 
+	// ops = 0;
+	// lb = b->head;
+	// curr.target_ops = INT_MAX;
+	// while (lb)
+	// {
+		// temp = find_a_target(a->head, lb, a->max);
+		// if (temp.flag == 0)
+		// {
+			// temp.target = temp.target_max;
+			// temp.target_ops = temp.target_max_ops;
+		// }
+		// if (temp.target_ops + ops++ < curr.target_ops)
+		// {
+			// curr = temp;
+			// curr.target_max_ops = ops;
+			// curr.target_max = lb;
+		// }
+		// lb = lb->next;
+	// }
+	// if (curr.target_max_ops < b->size / 2)
+		// while (curr.target_max->value != b->head->value)
+			// rb(b);
+	// else
+		// while (curr.target_max->value != b->head->value)
+			// rrb(b);
+	// if (curr.target_ops < b->size / 2)
+		// while (a->head->value != curr.target->value)
+			// ra(a);
+	// else
+		// while (a->head->value != curr.target->value)
+			// rra(a);
+	// pa(a, b);
+// }
 
 void	ft_sort_stack (t_table *a, t_table *b)
 {
@@ -190,14 +207,11 @@ void	ft_sort_stack (t_table *a, t_table *b)
 		if (a->size == 3)
 			organize_3(a);
 	}
-	while (b->head)
-		pull_n_organize(a, b);
-	// print_value(a, b);
-		if (a->head->value < a->size / 2)
-		while (a->tail != a->max)
-			rra(a);
-	else
-		while (a->tail != a->max)
-			ra(a);
+	// if (a->head->value < a->size / 2)
+		// while (a->tail != a->max)
+			// rra(a);
+	// else
+		// while (a->tail != a->max)
+			// ra(a);
 	// print_value(a, b);
 }
