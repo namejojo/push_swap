@@ -6,11 +6,22 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:47:43 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/31 18:05:39 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/01 08:23:12 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
+
+static int	check_zeros(t_list *a)
+{
+	while (a)
+	{
+		if (a->flag != 1)
+			return (1);
+		a = a->next;
+	}
+	return (0);
+}
 
 static void	organize_3(t_table *a)
 {
@@ -63,6 +74,7 @@ t_organize find_b_target(t_list *a, t_list *b, t_list *min)
 
 static void	put_b(t_table *a, t_table *b, t_organize curr)
 {
+	ft_printf("value %d flag %d, value %d flag %d\n", b->head->value, b->head->flag, curr.target->value, curr.target->flag);
 	if (curr.target_max_ops < b->size / 2)
 		while (curr.target_max->value != a->head->value)
 			ra(a);
@@ -90,13 +102,13 @@ t_organize find_a_target(t_list *a, t_list *b, t_list *max)
 	ret.flag = 0;
 	while (a && ++ops > -1)
 	{
-		if (a->value >= b->value && a->value <= ret.target->value)
+		if (a->value >= b->value && a->value <= ret.target->value && ret.target_max->flag != 1)
 		{
 			ret.target = a;
 			ret.target_ops = ops;
 			ret.flag = 1;
 		}
-		if (a->value < ret.target_max->value)
+		if (a->value < ret.target_max->value && ret.target_max->flag != 1)
 		{
 			ret.target_max = a;
 			ret.target_max_ops = ops;
@@ -118,8 +130,9 @@ static void	push_n_organize (t_table *a, t_table *b)
 	curr.target_ops = INT_MAX;
 	while (la)
 	{
-		temp = find_b_target(la, b->head, a->min);
-		if (temp.flag == 0)
+		if (la->flag != 1)
+			temp = find_b_target(la, b->head, a->min);
+		if (temp.flag == 0 /* && curr.target_max->flag != 1 */)
 		{
 			temp.target = temp.target_max;
 			temp.target_ops = temp.target_max_ops;
@@ -128,7 +141,7 @@ static void	push_n_organize (t_table *a, t_table *b)
 			// temp.target = temp.target_max;
 		// if (temp.flag == 0)
 			// temp.target_ops = temp.target_max_ops;
-		if (temp.target_ops + ops++ < curr.target_ops)
+		if (temp.target_ops + ops++ < curr.target_ops /* && curr.target->flag != 1 */)
 		{
 			curr = temp;
 			curr.target_max_ops = ops;
@@ -136,10 +149,10 @@ static void	push_n_organize (t_table *a, t_table *b)
 		}
 		la = la->next;
 	}
-	temp = find_a_target(la, b->head, a->min);
-	ft_printf("temp.flag=%d, temp.target=%d, temp.target_max=%d, temp.target_max_ops=%d, temp.target_ops=%d \n", temp.flag, temp.target->value, temp.target_max->value, temp.target_max_ops, temp.target_ops);
-	ft_printf("curr.flag=%d, curr.target=%d, curr.target_max=%d, curr.target_max_ops=%d, curr.target_ops=%d \n", curr.flag, curr.target->value, curr.target_max->value, curr.target_max_ops, curr.target_ops);
-	// if (curr.target < temp.target)
+	// temp = find_a_target(la, b->head, a->min);
+	// ft_printf("temp.flag=%d, temp.target=%d, temp.target_max=%d, temp.target_max_ops=%d, temp.target_ops=%d \n", temp.flag, temp.target->value, temp.target_max->value, temp.target_max_ops, temp.target_ops);
+	// ft_printf("curr.flag=%d, curr.target=%d, curr.target_max=%d, curr.target_max_ops=%d, curr.target_ops=%d \n", curr.flag, curr.target->value, curr.target_max->value, curr.target_max_ops, curr.target_ops);
+	if (check_zeros(a->head))
 		put_b(a, b, curr);
 	// else
 		// put_a(a, b, temp);
@@ -200,13 +213,13 @@ void	ft_sort_stack (t_table *a, t_table *b)
 		if (b->head->value < b->head->next->value)
 			rb(b);
 	}
-	if (check_if_sorted(a, b))
-	{
-		while (a->size > 3)
+	// if (check_if_sorted(a, b))
+	// {
+		while (a->size > 3 && check_zeros(a->head))
 			push_n_organize(a, b);
 		if (a->size == 3)
 			organize_3(a);
-	}
+	// }
 	// if (a->head->value < a->size / 2)
 		// while (a->tail != a->max)
 			// rra(a);

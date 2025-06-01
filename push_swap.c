@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:47:07 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/01 02:36:38 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/01 08:15:11 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_table	*init_table(t_table *a)
 	return (a);
 }
 
-void	mark_order(t_table *a)
+void	mark_bigger_count(t_table *a)
 {
 	int		count;
 	t_list	*temp;
@@ -45,10 +45,7 @@ void	mark_order(t_table *a)
 		}
 		if (value->value == 1)
 			count = a->max->value;
-		if (count == 0)
-			value->flag = a->max->value * 2 + 3;
-		else
-			value->flag = value->value + a->max->value + 2;
+		value->flag = count + 2;
 		ft_printf ("%d\t%d\t%d\n", value->value, count, value->flag); // delete
 		value = value->next;
 	}
@@ -107,79 +104,103 @@ int	check_if_sorted(t_table *a, t_table *b)
 	return (0);
 }
 
-int biggest_one(t_table *ta)
+
+
+// static t_list	*smallest_flag_and_not_one(t_table *ta)
+// {
+// 	t_list	*a;
+// 	t_list	*ret;
+// 	int		numb;
+
+// 	numb = biggest_one(ta);
+// 	ret = ta->max;
+// 	a = ta->head;
+// 	while (a)
+// 	{
+// 		if (a->flag <= ret->flag && a->flag != 0 && a->flag != 1 && ret->value > numb && a->value < ret->value)
+// 			ret = a;
+// 		a = a->next;
+// 	}
+// 	if (ret->flag - (ta->max->value * 2) != 0)
+// 		ret->flag = 1;
+// 	ft_printf("\n we found %d and smallest one is %d\n", ret->value, numb);
+// 	return (ret);
+// }
+
+// smallest 0 bigger than bigger 1
+static t_list	*biggest_one(t_table *ta)
 {
 	t_list	*a;
 	t_list	*ret;
-
 	
 	ret = ta->min;
-	a = ta->head->next;
-	while (a)
-	{
-		if (a->value > ret->value && (a->flag == 0 || a->flag == 1))
-			ret = a;
-		a = a->next;
-	}
-	return (ret->value);
-}
-
-static t_list	*smallest_flag_and_not_one(t_table *ta)
-{
-	t_list	*a;
-	t_list	*ret;
-	int		numb;
-
-	numb = biggest_one(ta);
-	ret = ta->max;
 	a = ta->head;
 	while (a)
 	{
-		if (a->flag <= ret->flag && a->flag != 0 && a->flag != 1 && ret->value > numb && a->value < ret->value)
+		if (a->value > ret->value && a->flag == 1)
 			ret = a;
 		a = a->next;
 	}
-	if (ret->flag - (ta->max->value * 2) != 0)
-		ret->flag = 1;
-	ft_printf("\n we found %d and smallest one is %d\n", ret->value, numb);
+	// a = ta->head;
+	// while (a)
+	// {
+	// 	if (a->value > ret->value && a->flag == 1)
+	// 		ret = a;
+	// 	a = a->next;
+	// }
 	return (ret);
+}
+
+static void	get_last_order(t_table *a)
+{
+	t_list	*hold;
+	t_list	*temp;
+	
+	hold = biggest_one(a);
+	temp = hold->next;
+	while (temp != a->min)
+	{
+		if (temp == NULL)
+			temp = a->head;
+		if (temp == a->min)
+			return ;
+		if (temp->flag != 1 && temp->value > hold->value)
+			temp->flag = 1;
+		temp = temp->next;
+	}
 }
 
 void	get_order(t_table *a)
 {
 	t_list	*comp;
 	t_list	*hold;
-	int		loops;
-	int		count;
+	int		one;
 
-	count = 0;
-	while (++count <= a->max->value)
+	one = biggest_one(a)->value;
+	comp = biggest_one(a)->next;
+	a->min->flag = 1;
+	hold = a->max;
+	while (comp != a->min)
 	{
-		loops = 0;
-		comp = a->min;
-		a->min->flag = 1;
-		hold = smallest_flag_and_not_one(a);
-		while (loops < 2 && comp != a->min)
-		{
-			if (comp == NULL)
-			{
-				comp = a->head;
-				loops++;
-			}
-			if ((comp->flag != 0 && comp->flag != 1) && comp->flag <= hold->flag && comp->value < hold->value)
-				hold = comp;
-			comp = comp->next;
-			ft_printf ("\nthe next best hold is %d", hold->value);
-			ft_printf ("\nvalues are %d and %d, %d", loops, comp->value, a->min->value);
-		}
+		if (comp == NULL)
+			comp = a->head;
+		if (comp == a->min)
+			break ;
+		if ((comp->flag != 0 && comp->flag != 1) && comp->flag >= hold->flag && comp->value < hold->value && comp->value > one)
+			hold = comp;
+		comp = comp->next;
 	}
+	if (hold != a->max)
+		hold->flag = 1;
 }
 
 int	main(int ac, char **av)
 {
 	t_table	*a;
 	t_table	*b;
+	int		count;
 
+	count = 0;
 	if (ac < 2)
 		return (0);
 	a = init_table(malloc(sizeof(t_table)));
@@ -192,18 +213,13 @@ int	main(int ac, char **av)
 		return (free (a), printf("ulala"));
 	format_stack(a);
 	print_value(a, b);
-	mark_order (a);
-	get_order (a);
+	mark_bigger_count (a);
+	while (++count < a->max->value)
+		get_order (a);
+	get_last_order(a);
 	// while (check_if_sorted(a, b))
-		// ft_sort_stack(a, b);
+		ft_sort_stack(a, b);
 	print_value(a, b);
 	ft_lstclear(&a->head);
 	free (a);
 }
-
-// int *var(void)
-// {
-	// static int a;
-// 
-	// return (&a);
-// }
