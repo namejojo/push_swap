@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:06:48 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/31 20:56:20 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/01 17:22:11 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,13 @@ typedef struct s_numb
 
 typedef struct s_organize
 {
-	int		flag;
+	t_list	*node_to_move;
 	t_list	*target_max;
 	t_list	*target;
+	int		flag;
 	int		target_ops;
 	int		target_max_ops;
+	int		node_to_move_ops;
 } t_organize;
 
 // ft_printf

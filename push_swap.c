@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:47:07 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/01 08:15:11 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/01 19:50:11 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,13 +212,13 @@ int	main(int ac, char **av)
 	if (ft_init_stack(++av, a))
 		return (free (a), printf("ulala"));
 	format_stack(a);
-	print_value(a, b);
 	mark_bigger_count (a);
 	while (++count < a->max->value)
 		get_order (a);
 	get_last_order(a);
+	print_value(a, b);
 	// while (check_if_sorted(a, b))
-		ft_sort_stack(a, b);
+	ft_sort_stack(a, b);
 	print_value(a, b);
 	ft_lstclear(&a->head);
 	free (a);

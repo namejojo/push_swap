@@ -23,7 +23,7 @@ HDR_FILE=libft.h
 
 CC=cc
 
-CFLAGS= -Wall -Wextra -Werror -g -s
+CFLAGS=  -g -s
 
 all: ${NAME}
 
