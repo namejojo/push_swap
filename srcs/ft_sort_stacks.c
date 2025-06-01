@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:47:43 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/01 19:45:10 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/01 23:58:09 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,19 @@ t_organize find_b_target(t_list *a, t_list *b, t_list *min)
 
 static void	put_b(t_table *a, t_table *b, t_organize curr)
 {
+	if (curr.node_to_move_ops < a->size / 2 && curr.target_ops <= b->size / 2)
+		while (curr.node_to_move->value != a->head->value && b->head->value != curr.target->value)
+			rr(a, b);
+	else if (!(curr.node_to_move_ops < a->size / 2) && !(curr.target_ops <= b->size / 2))
+		while (curr.node_to_move->value != a->head->value && b->head->value != curr.target->value)
+			rrr(a, b);
 	if (curr.node_to_move_ops < a->size / 2)
 		while (curr.node_to_move->value != a->head->value)
 			ra(a);
 	else
 		while (curr.node_to_move->value != a->head->value)
 			rra(a);
-	if (curr.target_ops < b->size / 2)
+	if (curr.target_ops <= b->size / 2)
 		while (b->head->value != curr.target->value)
 			rb(b);
 	else
@@ -91,10 +97,16 @@ static void	put_b(t_table *a, t_table *b, t_organize curr)
 
 static void	put_a(t_table *a, t_table *b, t_organize curr)
 {
+	if (curr.node_to_move_ops < b->size / 2 && curr.target_ops < a->size / 2)
+		while (curr.node_to_move->value != b->head->value && a->head->value != curr.target->value)
+			rr(a, b);
+	else if (!(curr.node_to_move_ops < b->size / 2) && !(curr.target_ops < a->size / 2))
+		while (curr.node_to_move->value != b->head->value && a->head->value != curr.target->value)
+			rrr(a, b);
 	if (curr.node_to_move_ops < b->size / 2)
 		while (curr.node_to_move->value != b->head->value)
 			rb(b);
-	else
+	else 
 		while (curr.node_to_move->value != b->head->value)
 			rrb(b);
 	if (curr.target_ops < a->size / 2)
@@ -206,9 +218,17 @@ static void	organize_all(t_table *a, t_table *b)
 
 	if (check_zeros(a->head) && org_to_b.target_ops + org_to_b.node_to_move_ops
 	 < org_to_a.target_ops + org_to_a.node_to_move_ops)
+	 {
+		ft_printf("this %d goes here %d\n", org_to_b.node_to_move->value, org_to_b.target->value);
+		ft_printf("instead of this %d going here %d\n", org_to_a.node_to_move->value, org_to_a.target->value);
 		put_b(a, b, org_to_b);
+	 }
 	else
+	{
+		ft_printf("this %d goes here %d\n", org_to_a.node_to_move->value, org_to_a.target->value);
+		ft_printf("instead of this %d going here %d\n", org_to_b.node_to_move->value, org_to_b.target->value);
 		put_a(a, b, org_to_a);
+	}
 	 print_value(a, b);
 }
 
@@ -230,6 +250,7 @@ void	ft_sort_stack (t_table *a, t_table *b)
 			ra(a);
 		pb(a, b);
 	}
+	print_value(a, b);
 	while (a->size > 3 && check_zeros(a->head))
 		organize_all(a, b);
 	if (a->size == 3)
