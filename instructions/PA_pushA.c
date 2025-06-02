@@ -1,0 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PA_pushA.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/08 15:29:59 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/05/13 15:47:45 by jlima-so         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+void pa(t_table *b, t_table *a)
+{
+	if (a->head == NULL)
+		return ;
+	if (b->head == NULL)
+	{
+		b->head = a->head;
+		a->head = a->head->next;
+		a->head->previous = NULL;				
+		b->head->next = NULL;
+		b->head->previous = NULL;
+		b->tail = b->head;
+	}
+	else
+	{
+		b->head->previous = a->head;
+		a->head = a->head->next;
+		if (a->head != NULL)
+			a->head->previous = NULL;
+		else
+			a->tail = NULL;
+		b->head->previous->next = b->head;
+		b->head = b->head->previous;
+	}
+	a->size--;
+	b->size++;
+	write (1, "PA\n", 3);
+}
