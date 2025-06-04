@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:06:48 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/01 17:22:11 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/03 20:20:31 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,15 @@ typedef struct s_numb
 	int	temp;
 }			t_numb;
 
-typedef struct s_organize
+typedef struct s_target
 {
-	t_list	*node_to_move;
-	t_list	*target_max;
+	t_list	*to_move;
+	int		to_move_location;
+	int		to_move_favor;
 	t_list	*target;
-	int		flag;
-	int		target_ops;
-	int		target_max_ops;
-	int		node_to_move_ops;
-} t_organize;
+	int		target_location;
+	int		target_favor;
+} t_target;
 
 // ft_printf
 int		ft_putchar(char c);
@@ -125,6 +124,5 @@ int		check_if_sorted(t_table *a, t_table *b);
 void	ft_sort_stack(t_table *a, t_table *b);
 // DELETE
 void		print_value (t_table *a, t_table *b);
-t_organize	find_target(t_list *a, t_list *b, t_list *min);
 
 #endif

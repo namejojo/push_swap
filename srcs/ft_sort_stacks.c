@@ -6,21 +6,41 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:47:43 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/01 23:58:09 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/04 11:31:46 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-static int	check_zeros(t_list *a)
+static t_target	find_favor(t_target ret, t_table *ta, t_table *tb)
 {
-	while (a)
+	int		location;
+	t_list	*a;
+	t_list	*b;
+
+	a = ta->head;
+	b = tb->head;
+	location = 0;
+	while (a && a->value != ret.to_move->value)
 	{
-		if (a->flag != 1)
-			return (1);
+		location++;
 		a = a->next;
 	}
-	return (0);
+	ret.to_move_favor = location;
+	if (location > ta->size / 2)
+		ret.to_move_favor = ta->size - location;
+	ret.to_move_location = location;
+	location = 0;
+	while (b && b->value != ret.target->value)
+	{
+		location++;	
+		b = b->next;
+	}
+	ret.target_favor = location;
+	if (location > tb->size / 2)
+		ret.target_favor = tb->size - location;
+	ret.target_location = location;
+	return (ret);
 }
 
 static void	organize_3(t_table *a)
@@ -45,191 +65,144 @@ static void	organize_3(t_table *a)
 	rra(a);
 }
 
-t_organize find_b_target(t_list *a, t_list *b, t_list *min)
+static void	really_push_b(t_table *a, t_table *b, t_target curr)
 {
-	t_organize	ret;
-	int			ops;
-
-	ops = -1;
-	ret.target = min;
-	ret.target_max = min;
-	ret.flag = 0;
-	while (b && ++ops > -1)
-	{
-		if (b->value <= a->value && b->value >= ret.target->value)
-		{
-			ret.target = b;
-			ret.target_ops = ops;
-			ret.flag = 1;
-		}
-		if (b->value > ret.target_max->value)
-		{
-			ret.target_max = b;
-			ret.target_max_ops = ops;
-		}
-		b = b->next;
-	}
-	return (ret);
-}
-
-static void	put_b(t_table *a, t_table *b, t_organize curr)
-{
-	if (curr.node_to_move_ops < a->size / 2 && curr.target_ops <= b->size / 2)
-		while (curr.node_to_move->value != a->head->value && b->head->value != curr.target->value)
+	if (curr.to_move_location < a->size / 2 && curr.target_location <= b->size / 2)
+		while (curr.to_move->value != a->head->value && b->head->value != curr.target->value)
 			rr(a, b);
-	else if (!(curr.node_to_move_ops < a->size / 2) && !(curr.target_ops <= b->size / 2))
-		while (curr.node_to_move->value != a->head->value && b->head->value != curr.target->value)
+	else if (!(curr.to_move_location < a->size / 2) && !(curr.target_location <= b->size / 2))
+		while (curr.to_move->value != a->head->value && b->head->value != curr.target->value)
 			rrr(a, b);
-	if (curr.node_to_move_ops < a->size / 2)
-		while (curr.node_to_move->value != a->head->value)
+	if (curr.to_move_location < a->size / 2)
+		while (curr.to_move->value != a->head->value)
 			ra(a);
 	else
-		while (curr.node_to_move->value != a->head->value)
+		while (curr.to_move->value != a->head->value)
 			rra(a);
-	if (curr.target_ops <= b->size / 2)
-		while (b->head->value != curr.target->value)
-			rb(b);
-	else
+	if (curr.target_location > b->size / 2)
 		while (b->head->value != curr.target->value)
 			rrb(b);
+	else
+		while (b->head->value != curr.target->value)
+			rb(b);
 	pb(a, b);
 }
 
-static void	put_a(t_table *a, t_table *b, t_organize curr)
+static t_target	find_b_target(t_list *a, t_table *ta, t_table *tb)
 {
-	if (curr.node_to_move_ops < b->size / 2 && curr.target_ops < a->size / 2)
-		while (curr.node_to_move->value != b->head->value && a->head->value != curr.target->value)
-			rr(a, b);
-	else if (!(curr.node_to_move_ops < b->size / 2) && !(curr.target_ops < a->size / 2))
-		while (curr.node_to_move->value != b->head->value && a->head->value != curr.target->value)
-			rrr(a, b);
-	if (curr.node_to_move_ops < b->size / 2)
-		while (curr.node_to_move->value != b->head->value)
-			rb(b);
-	else 
-		while (curr.node_to_move->value != b->head->value)
-			rrb(b);
-	if (curr.target_ops < a->size / 2)
-		while (a->head->value != curr.target->value)
-			ra(a);
-	else
-		while (a->head->value != curr.target->value)
-			rra(a);
-	b->head->flag = 1;
-	pa(a, b);
-}
-t_organize find_a_target(t_list *b, t_list *a, t_list *max)
-{
-	t_organize	ret;
-	int			ops;
+	t_list		*b;
+	t_target	ret;
+	t_target	ret_flag;
+	int			flag;
 
-	ops = -1;
-	ret.target = max;
-	ret.target_max = max;
-	ret.flag = 0;
-	while (a && ++ops > -1)
+	b = tb->head;
+	ret.target = ta->min;
+	ret_flag.target = ta->min;
+	flag = 0;
+	while (b)
 	{
-		if (a->value >= b->value && a->value <= ret.target->value && a->flag == 1)
-		{
-			ret.target = a;
-			ret.target_ops = ops;
-			ret.flag = 1;
-		}
-		if (a->value < ret.target_max->value && a->flag == 1)
-		{
-			ret.target_max = a;
-			ret.target_max_ops = ops;
-		}
+		flag += (b->value <= a->value && b->value >= ret.target->value);
+		if (b->value <= a->value && b->value >= ret.target->value)
+			ret.target = b;
+		if (b->value >= ret_flag.target->value)
+			ret_flag.target = b;
+		b = b->next;
+	}
+	ret.to_move = a;
+	ret_flag.to_move = a;
+	if (flag == 0)
+		return (find_favor(ret_flag, ta, tb));
+	return (find_favor(ret, ta, tb));
+}
+
+static void	push_to_b(t_table *ta, t_table* tb)
+{
+	t_list		*a;
+	t_target	target;
+	t_target	temp;
+
+	a = ta->head;
+	target = find_b_target(a, ta, tb);
+	while (a)
+	{
+		temp = find_b_target(a, ta, tb);
+		if (target.target_favor + target.to_move_favor >= temp.target_favor + temp.to_move_favor)
+			target = temp;
 		a = a->next;
 	}
-	return (ret);
+	really_push_b (ta, tb, target);
 }
 
-static t_organize	pushing_to_b (t_table *a, t_table *b)
+static void	really_push_a(t_table *a, t_table *b, t_target curr)
 {
-	t_organize	temp;
-	t_organize	curr;
-	t_list		*la;
-	int			ops;
-
-	ops = 0;
-	la = a->head;
-	curr.target_ops = 10000000;
-	curr.target_max_ops = 10000000;
-	while (la)
-	{
-		if (la->flag != 1)
-		{
-			temp = find_b_target(la, b->head, a->min);
-			if (temp.flag == 0)
-			{
-				temp.target = temp.target_max;
-				temp.target_ops = temp.target_max_ops;
-			}
-			if (temp.target_ops + ++ops < curr.target_ops)
-			{
-				curr = temp;
-				curr.node_to_move_ops = ops;
-				curr.node_to_move = la;
-			}
-		}
-		la = la->next;
-	}
-	return (curr);
-}
-
-static t_organize	pushing_to_a (t_table *a, t_table *b)
-{
-	t_organize	temp;
-	t_organize	curr;
-	t_list		*lb;
-	int			ops;
-
-	ops = 0;
-	lb = b->head;
-	curr.target_ops = 10000000;
-	curr.target_max_ops = 10000000;
-	while (lb)
-	{
-		temp = find_a_target(lb, a->head, a->max);
-		if (temp.flag == 0)
-		{
-			temp.target = temp.target_max;
-			temp.target_ops = temp.target_max_ops;
-		}
-		if (temp.target_ops + ++ops < curr.target_ops)
-		{
-			curr = temp;
-			curr.node_to_move_ops = ops;
-			curr.node_to_move = lb;
-		}
-		lb = lb->next;
-	}
-	return (curr);
-}
-
-static void	organize_all(t_table *a, t_table *b)
-{
-	t_organize	org_to_b;
-	t_organize	org_to_a;
-	
-	org_to_a = pushing_to_a (a, b);
-	org_to_b = pushing_to_b (a, b);
-
-	if (check_zeros(a->head) && org_to_b.target_ops + org_to_b.node_to_move_ops
-	 < org_to_a.target_ops + org_to_a.node_to_move_ops)
-	 {
-		ft_printf("this %d goes here %d\n", org_to_b.node_to_move->value, org_to_b.target->value);
-		ft_printf("instead of this %d going here %d\n", org_to_a.node_to_move->value, org_to_a.target->value);
-		put_b(a, b, org_to_b);
-	 }
+	if (curr.to_move_location < b->size / 2 && curr.target_location <= a->size / 2)
+		while (curr.to_move->value != b->head->value && a->head->value != curr.target->value)
+			rr(a, b);
+	else if (!(curr.to_move_location < b->size / 2) && !(curr.target_location <= a->size / 2))
+		while (curr.to_move->value != b->head->value && a->head->value != curr.target->value)
+			rrr(a, b);
+	if (curr.to_move_location < b->size / 2)
+		while (curr.to_move->value != b->head->value)
+			rb(b);
 	else
+		while (curr.to_move->value != b->head->value)
+			rrb(b);
+	if (curr.target_location > a->size / 2)
+		while (a->head->value != curr.target->value)
+			rra(a);
+	else
+		while (a->head->value != curr.target->value)
+			ra(a);
+	pa(a, b);
+}
+
+static t_target	find_a_target(t_list *b, t_table *ta, t_table *tb)
+{
+	t_list		*a;
+	t_target	ret;
+	t_target	ret_flag;
+	int			flag;
+
+	a = ta->head;
+	ret.target = ta->max;
+	ret_flag.target = ta->max;
+	flag = 0;
+	while (a)
 	{
-		ft_printf("this %d goes here %d\n", org_to_a.node_to_move->value, org_to_a.target->value);
-		ft_printf("instead of this %d going here %d\n", org_to_b.node_to_move->value, org_to_b.target->value);
-		put_a(a, b, org_to_a);
+		flag += (a->value >= b->value && a->value <= ret.target->value);
+		if (a->value >= b->value && a->value <= ret.target->value)
+			ret.target = a;
+		if (a->value <= ret_flag.target->value)
+			ret_flag.target = a;
+		a = a->next;
 	}
-	 print_value(a, b);
+	ret.to_move = b;
+	ret_flag.to_move = b;
+	if (flag == 0)
+		return (find_favor(ret_flag, tb, ta));
+	return (find_favor(ret, tb, ta));
+}
+
+static void	push_to_a(t_table *ta, t_table* tb)
+{
+	print_value (ta, tb);
+	really_push_a (ta, tb, find_a_target(tb->head, ta, tb));
+}
+
+static t_list	*find_b_max(t_table *b)
+{
+	t_list	*ret;
+	t_list	*temp;
+
+	ret = b->head;
+	temp = b->head->next;
+	while (temp)
+	{
+		if (temp->value > ret->value)
+			ret = temp;
+		temp = temp->next;
+	}
+	return (ret);
 }
 
 void	ft_sort_stack (t_table *a, t_table *b)
@@ -238,29 +211,27 @@ void	ft_sort_stack (t_table *a, t_table *b)
 		return (organize_3(a));
 	if (a->size == 2 && a->head->value > a->head->next->value)
 		return (ra(a));
-	if (check_zeros(a->head))
-	{
-		while (check_zeros(a->head) && a->head->flag == 1)
-			ra(a);
-		pb(a, b);
-	}
-	if (check_zeros(a->head))
-	{
-		while (check_zeros(a->head) && a->head->flag == 1)
-			ra(a);
-		pb(a, b);
-	}
-	print_value(a, b);
-	while (a->size > 3 && check_zeros(a->head))
-		organize_all(a, b);
+	pb(a, b);
+	pb(a, b);
+	while (a->size > 3)
+		push_to_b(a, b);
 	if (a->size == 3)
 		organize_3(a);
+	b->max = find_b_max(b);
+	{
+		if (b->head->value < b->size / 2)
+			while (b->head != b->max)
+				rb(b);
+		else
+			while (b->head != b->max)
+				rrb(b);
+	}
 	while (b->head != NULL)
-		put_a(a, b, pushing_to_a (a, b));
+		push_to_a(a, b);
 	if (a->head->value < a->size / 2)
-		while (a->tail != a->max)
+		while (a->head != a->min)
 			rra(a);
 	else
-		while (a->tail != a->max)
+		while (a->head != a->min)
 			ra(a);
 }
