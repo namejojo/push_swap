@@ -23,9 +23,9 @@ HDR_FILE=libft.h
 
 CC=cc
 
-CFLAGS= -Wall -Wextra -Werror -g -s
+CFLAGS= -Wall -Wextra -Werror -g -s 
 
-all: ${NAME}
+all: ${NAME} push_swap
 
 push_swap: ${NAME} push_swap.c
 	${CC} ${CFLAGS} push_swap.c ${NAME} -o push_swap

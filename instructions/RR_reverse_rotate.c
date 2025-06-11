@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:12:10 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/05/13 16:24:46 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:13:16 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	rr(t_table *a, t_table *b)
 	b->head = b->head->next;
 	b->head->previous = NULL;
 	b->tail->next = NULL;
-	write (1, "RR\n", 3);
+	write (1, "rr\n", 3);
 }

@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:06:48 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/01 17:22:11 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/03 00:56:28 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct s_table
 	t_list	*head;
 	t_list	*tail;
 	int		size;
-	int		avg; // dont need this
 }				t_table;
 
 typedef struct s_numb
@@ -94,7 +93,6 @@ void	ft_lstiter(t_list *lst, int (*f)(long));
 t_list	*ft_lstnew(char *content, t_list *last);
 // auxiliar functions
 char	*skip_spaces(char *str);
-void	update_value(t_table *a, t_list *temp);
 t_table	*init_table(t_table *a);
 int		ft_check(char *str);
 char	**ft_split(char const *s, char c);
