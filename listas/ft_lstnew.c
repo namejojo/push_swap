@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:57:41 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/01 01:23:18 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/16 19:03:45 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_check(char *str)
 {
-	int count;
-	
+	int	count;
+
 	count = 0;
 	str = skip_spaces(str);
 	if (*str == '+' || *str == '-')

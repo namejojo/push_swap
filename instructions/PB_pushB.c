@@ -6,13 +6,13 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 15:25:21 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/05 14:06:05 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/16 19:08:45 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void pb(t_table *a, t_table *b)
+void	pb(t_table *a, t_table *b)
 {
 	if (a->head == NULL)
 		return ;
@@ -20,7 +20,7 @@ void pb(t_table *a, t_table *b)
 	{
 		b->head = a->head;
 		a->head = a->head->next;
-		a->head->previous = NULL;				
+		a->head->previous = NULL;
 		b->head->next = NULL;
 		b->head->previous = NULL;
 		b->tail = b->head;

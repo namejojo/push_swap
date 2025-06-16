@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:46:55 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/03 00:59:57 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/16 19:08:08 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	check(t_table *a)
 	return (0);
 }
 
-static int ft_init_stack2 (char *av, t_table *a)
+static int	ft_init_stack2(char *av, t_table *a)
 {
 	char	**temp_split;
 	int		count;
@@ -92,7 +92,7 @@ int	ft_init_stack(char **av, t_table *a)
 			a->tail = a->tail->next;
 		}
 		if (check(a))
-			return (ft_lstclear(&a->head), 1);			
+			return (ft_lstclear(&a->head), 1);
 	}
 	return (0);
 }

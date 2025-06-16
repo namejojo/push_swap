@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:13:22 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/16 18:37:22 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:51:30 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 t_table	*init_table(t_table *a)
 {
 	if (a == NULL)
-		return (NULL);	
+		return (NULL);
 	a->head = NULL;
 	a->tail = NULL;
 	a->max = NULL;
@@ -26,7 +26,7 @@ t_table	*init_table(t_table *a)
 	return (a);
 }
 
-static void execute(char *s, t_table *a, t_table *b)
+static void	execute(char *s, t_table *a, t_table *b)
 {
 	if (ft_strncmp(s, "pa\n", 3) == 0)
 		return (pa(a, b));
@@ -89,7 +89,7 @@ int	main(int ac, char **av)
 	cmd = get_next_line(0);
 	while (cmd)
 	{
-		execute(cmd , a, b);
+		execute(cmd, a, b);
 		free (cmd);
 		cmd = get_next_line(0);
 	}

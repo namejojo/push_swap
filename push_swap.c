@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:47:07 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/16 18:38:43 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/16 19:16:53 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_table	*init_table(t_table *a)
 {
 	if (a == NULL)
-		return (NULL);	
+		return (NULL);
 	a->head = NULL;
 	a->tail = NULL;
 	a->max = NULL;
@@ -71,7 +71,6 @@ int	main(int ac, char **av)
 	if (ft_init_stack(++av, a))
 		return (free (a), write(2, "Error\n", 7));
 	format_stack(a);
-	get_last_order(a);
 	ft_sort_stack(a, b);
 	ft_lstclear(&a->head);
 	free (a);
