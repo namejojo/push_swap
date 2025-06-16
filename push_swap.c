@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:47:07 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/16 17:46:18 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:28:50 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,16 +156,13 @@ int	main(int ac, char **av)
 		return (0);
 	a = init_table(malloc(sizeof(t_table)));
 	if (a == NULL)
-		return (printf("Memory Error"));
+		return (write(2, "Error\n", 7));
 	b = init_table(malloc(sizeof(t_table)));
 	if (b == NULL)
-		return (printf("Memory Error"));
+		return (write(2, "Error\n", 7));
 	if (ft_init_stack(++av, a))
-		return (free (a), printf("ulala"));
+		return (free (a), write(2, "Error\n", 7));
 	format_stack(a);
-	// mark_bigger_count (a);
-	// while (++count < a->max->value)
-		// get_order (a);
 	get_last_order(a);
 	ft_sort_stack(a, b);
 	ft_lstclear(&a->head);

@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:13:22 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/04 17:01:07 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:34:43 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,25 @@ void print_value (t_table *a, t_table *b) // delete
 
 static void execute(char *s, t_table *a, t_table *b)
 {
-	if (ft_strncmp(s, "PA\n", 3) == 0)
+	if (ft_strncmp(s, "pa\n", 3) == 0)
 		return (pa(a, b));
-	if (ft_strncmp(s, "PB\n", 3) == 0)
+	if (ft_strncmp(s, "pb\n", 3) == 0)
 		return (pb(a, b));
-	if (ft_strncmp(s, "SA\n", 3) == 0)
+	if (ft_strncmp(s, "sa\n", 3) == 0)
 		return (sa(a));
-	if (ft_strncmp(s, "SB\n", 3) == 0)
+	if (ft_strncmp(s, "sb\n", 3) == 0)
 		return (sb(b));
-	if (ft_strncmp(s, "RA\n", 3) == 0)
+	if (ft_strncmp(s, "ra\n", 3) == 0)
 		return (ra(a));
-	if (ft_strncmp(s, "RB\n", 3) == 0)
+	if (ft_strncmp(s, "rb\n", 3) == 0)
 		return (rb(b));
-	if (ft_strncmp(s, "RRA\n", 4) == 0)
+	if (ft_strncmp(s, "rra\n", 4) == 0)
 		return (rra(a));
-	if (ft_strncmp(s, "RRB\n", 4) == 0)
+	if (ft_strncmp(s, "rrb\n", 4) == 0)
 		return (rrb(b));
-	if (ft_strncmp(s, "RR\n", 3) == 0)
+	if (ft_strncmp(s, "rr\n", 3) == 0)
 		return (rr(a, b));
-	if (ft_strncmp(s, "RRR\n", 4) == 0)
+	if (ft_strncmp(s, "rrr\n", 4) == 0)
 		return (rrr(a, b));
 }
 

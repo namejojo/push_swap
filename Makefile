@@ -29,11 +29,9 @@ HDR_FILE=libft.h
 
 CC=cc
 
-CFLAGS= 
-#-Wall -Wextra -Werror -g -s 
+CFLAGS= -Wall -Wextra -Werror
 
 all: ${NAME} push_swap
-	clear
 
 push_swap: ${NAME} push_swap.c
 	${CC} ${CFLAGS} push_swap.c ${NAME} -o push_swap
@@ -42,19 +40,17 @@ ${NAME}: ${OBJ_FILES}
 	@ar rcs $@ $?
 	@echo "library created"
 
-bonus: .bonus checker
-
-checker:
+bonus: lib bonus.c
 	${CC} ${CFLAGS} bonus.c ${NAME} -o checker
+	@touch bonus
 
-.bonus: ${OBJ_BONUS} $(OBJ_BONUS)
-	ar rcs ${NAME} $?
-	@touch .bonus
-	@echo "bonus library created"
-	
+lib: ${OBJ_BONUS}
+	@ar rcs ${NAME} $?
+	@touch lib
+
 clean: 
 	@rm -f $(OBJ_BONUS) $(OBJ_FILES) 
-	@rm -f .bonus
+	@rm -f lib
 	@echo "files removed"
 
 fclean: clean 
