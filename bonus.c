@@ -6,15 +6,13 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:13:22 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/16 18:34:43 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:37:22 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line/get_next_line_bonus.h"
 #include "libft.h"
 #include "libft_checker.h"
-#include <unistd.h>
-#include <stdlib.h>
-#include "get_next_line/get_next_line_bonus.h"
 
 t_table	*init_table(t_table *a)
 {
@@ -26,37 +24,6 @@ t_table	*init_table(t_table *a)
 	a->min = NULL;
 	a->size = 0;
 	return (a);
-}
-
-void print_value (t_table *a, t_table *b) // delete
-{
-	t_list	*temp;
-	t_list	*temp2;
-	
-	temp = a->head;
-	temp2 = b->head;
-	ft_printf("\nA\tB");
-	ft_printf("\n");
-	while (temp != NULL || temp2 != NULL)
-	{
-		if (temp)
-		{
-			ft_printf("%d", (int)temp->value);
-			temp = temp->next;
-		}
-		else
-			ft_printf("   ");
-		ft_printf("\t   ");
-		if (temp2)
-		{
-			ft_printf("%d\n", (int)temp2->value);
-			temp2 = temp2->next;
-		}
-		else
-			ft_printf("\n");
-	}
-	ft_printf("\n");
-	ft_printf("--------------------------------\n");
 }
 
 static void execute(char *s, t_table *a, t_table *b)
