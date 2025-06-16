@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RRB_reverse_rotateB.c                              :+:      :+:    :+:   */
+/*   RR_reverse_rotate.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/08 19:11:02 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/05 14:06:24 by jlima-so         ###   ########.fr       */
+/*   Created: 2025/05/08 19:12:10 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/06/04 17:01:30 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-
-void	rrb(t_table *a)
+void	rr(t_table *a, t_table *b)
 {
 	if (a == NULL || a->head == a->tail)
 		return ;
-	a->head->previous = a->tail;
-	a->tail = a->tail->previous;
-	a->head->previous->next = a->head;
-	a->head = a->head->previous;
+	if (b == NULL || b->head == b->tail)
+		return ;
+	a->tail->next = a->head;
+	a->tail->next->previous = a->tail;
+	a->tail = a->tail->next;
+	a->head = a->head->next;
 	a->head->previous = NULL;
 	a->tail->next = NULL;
-	write (1, "rrb\n", 4);
+	b->tail->next = b->head;
+	b->tail->next->previous = b->tail;
+	b->tail = b->tail->next;
+	b->head = b->head->next;
+	b->head->previous = NULL;
+	b->tail->next = NULL;
 }

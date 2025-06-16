@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PB_pushB.c                                         :+:      :+:    :+:   */
+/*   PA_pushA.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/08 15:25:21 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/05 14:06:05 by jlima-so         ###   ########.fr       */
+/*   Created: 2025/05/08 15:29:59 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/06/04 17:01:19 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void pb(t_table *a, t_table *b)
+void pa(t_table *b, t_table *a)
 {
 	if (a->head == NULL)
 		return ;
@@ -38,5 +38,4 @@ void pb(t_table *a, t_table *b)
 	}
 	a->size--;
 	b->size++;
-	write (1, "pb\n", 3);
 }

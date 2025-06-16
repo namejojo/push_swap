@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:47:07 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/11 18:26:39 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:46:18 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,52 +81,6 @@ void print_value (t_table *a, t_table *b) // delete
 	ft_printf("--------------------------------\n");
 }
 
-int	check_if_sorted(t_table *a, t_table *b)
-{
-	t_list	*temp;
-	int		flag;
-
-	flag = 0;
-	if (b->head != NULL)
-		return (1);
-	temp = a->head;
-	while (temp->next != NULL)
-	{
-		if (temp->next->value != temp->value + 1 && flag == 1)
-			return (1);
-		if (temp->next->value != temp->value + 1)
-			flag = 1;
-		temp = temp->next;
-	}
-	while (a->head->value != 1 && flag == 1)
-		ra(a);
-	return (0);
-}
-
-
-
-// static t_list	*smallest_flag_and_not_one(t_table *ta)
-// {
-// 	t_list	*a;
-// 	t_list	*ret;
-// 	int		numb;
-
-// 	numb = biggest_one(ta);
-// 	ret = ta->max;
-// 	a = ta->head;
-// 	while (a)
-// 	{
-// 		if (a->flag <= ret->flag && a->flag != 0 && a->flag != 1 && ret->value > numb && a->value < ret->value)
-// 			ret = a;
-// 		a = a->next;
-// 	}
-// 	if (ret->flag - (ta->max->value * 2) != 0)
-// 		ret->flag = 1;
-// 	ft_printf("\n we found %d and smallest one is %d\n", ret->value, numb);
-// 	return (ret);
-// }
-
-// smallest 0 bigger than bigger 1
 static t_list	*biggest_one(t_table *ta)
 {
 	t_list	*a;
@@ -216,4 +170,5 @@ int	main(int ac, char **av)
 	ft_sort_stack(a, b);
 	ft_lstclear(&a->head);
 	free (a);
+	free (b);
 }

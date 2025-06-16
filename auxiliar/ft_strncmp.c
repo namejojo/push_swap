@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SA_switchA.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/08 15:29:59 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/05 14:06:30 by jlima-so         ###   ########.fr       */
+/*   Created: 2025/03/24 19:58:30 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/06/04 16:02:12 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	sa(t_table *a)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	temp;
-	
-	temp = a->head->value;
-	a->head->value = a->head->next->value;
-	a->head->next->value = temp;
-	write (1, "sa\n", 3);
+	size_t			ind;
+	unsigned char	*str1;
+	unsigned char	*str2;
+
+	if (n == 0)
+		return (0);
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	ind = 0;
+	while (str1[ind] && str2[ind] && str1[ind] == str2[ind] && ind < n - 1)
+		ind++;
+	return (str1[ind] - str2[ind]);
 }

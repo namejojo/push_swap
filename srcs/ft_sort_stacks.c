@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:47:43 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/11 23:01:26 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:44:48 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,9 +155,9 @@ void listify(t_list *b)
 	}
 }
 
-
 void	ft_sort_stack (t_table *a, t_table *b)
 {
+	return ;
 	if (a->size == 3)
 		return (organize_3(a));
 	if (a->size == 2 && a->head->value > a->head->next->value)

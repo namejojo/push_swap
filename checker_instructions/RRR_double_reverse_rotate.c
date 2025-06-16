@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RRB_reverse_rotateB.c                              :+:      :+:    :+:   */
+/*   RRR_double_reverse_rotate.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/08 19:11:02 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/05 14:06:24 by jlima-so         ###   ########.fr       */
+/*   Created: 2025/05/08 19:21:16 by jlima-so          #+#    #+#             */
+/*   Updated: 2025/06/04 17:01:38 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-
-void	rrb(t_table *a)
+void	rrr(t_table *a, t_table *b)
 {
 	if (a == NULL || a->head == a->tail)
 		return ;
@@ -23,5 +22,12 @@ void	rrb(t_table *a)
 	a->head = a->head->previous;
 	a->head->previous = NULL;
 	a->tail->next = NULL;
-	write (1, "rrb\n", 4);
+	if (b == NULL || b->head == b->tail)
+		return ;
+	b->head->previous = b->tail;
+	b->tail = b->tail->previous;
+	b->head->previous->next = b->head;
+	b->head = b->head->previous;
+	b->head->previous = NULL;
+	b->tail->next = NULL;
 }
