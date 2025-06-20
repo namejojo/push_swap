@@ -6,7 +6,7 @@
 /*   By: jlima-so <jlima-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:06:48 by jlima-so          #+#    #+#             */
-/*   Updated: 2025/06/16 19:12:21 by jlima-so         ###   ########.fr       */
+/*   Updated: 2025/06/20 16:25:17 by jlima-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			check_if_sorted(t_table *a, t_table *b);
 void		ft_sort_stack(t_table *a, t_table *b);
 void		print_value(t_table *a, t_table *b);
 void		push_to_b(t_table *a, t_table *b, int max, int min);
-static void	organize_to_b(t_table *a, t_table *b);
+void	organize_to_b(t_table *a, t_table *b);
 int			find_closeste(t_table *tb, int skip);
 void		push_to_a(t_table *a, t_table *b, int location);
 
