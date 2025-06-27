@@ -29,7 +29,6 @@ int	ft_check(char *str)
 		if (!(*str >= '0' && *str <= '9'))
 			return (1);
 		str++;
-		str = skip_spaces(str);
 		count++;
 		if (count > 10)
 			return (1);
@@ -49,7 +48,7 @@ t_list	*ft_lstnew(char *content, t_list *last)
 		return (NULL);
 	temp = ft_atol(content);
 	if (temp > INT_MAX || temp < INT_MIN)
-		return (NULL);
+		return (free(new), NULL);
 	new->value = temp;
 	new->next = NULL;
 	new->previous = last;

@@ -40,11 +40,11 @@ void	organize_to_b(t_table *a, t_table *b)
 	if (a->max->value >= 100)
 		divider = a->max->value / 50 + 6;
 	else if (a->max->value >= 50)
-		divider = a->max->value / (a->max->value / 10);
+		divider = a->max->value / 6;
 	else if (a->max->value >= 10)
-		divider = a->max->value / (a->max->value / 2);
+		divider = a->max->value / 4;
 	else
-		divider = (a->max->value < 7) * 2 + 2;
+		divider = 4;
 	min = -a->max->value / divider;
 	max = 0;
 	count = a->max->value / (divider / 2);
@@ -70,15 +70,12 @@ int	find_closeste(t_table *tb, int skip)
 	while (b != tb->tail && b->value < skip)
 	{
 		from_up++;
-		fflush(stdout);
 		b = b->next;
 	}
-	fflush(stdout);
 	b = tb->tail;
 	while (b != tb->head && b->value < skip)
 	{
 		from_down++;
-		fflush(stdout);
 		b = b->previous;
 	}
 	if (from_down < from_up)

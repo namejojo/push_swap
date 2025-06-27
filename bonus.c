@@ -55,7 +55,10 @@ static void	ft_checker(t_table *a, t_table *b)
 	t_list	*la;
 
 	if (b->head != NULL)
+	{
 		write (1, "KO\n", 3);
+		return ;
+	}
 	la = a->head->next;
 	while (la)
 	{
@@ -69,23 +72,10 @@ static void	ft_checker(t_table *a, t_table *b)
 	write (1, "OK\n", 3);
 }
 
-int	main(int ac, char **av)
+void	bonus_part(t_table *a, t_table *b)
 {
-	t_table	*a;
-	t_table	*b;
 	char	*cmd;
 
-	if (ac < 2)
-		return (0);
-	a = init_table(malloc(sizeof(t_table)));
-	if (a == NULL)
-		return (printf("Memory Error"));
-	b = init_table(malloc(sizeof(t_table)));
-	if (b == NULL)
-		return (printf("Memory Error"));
-	if (ft_init_stack(++av, a))
-		return (free (a), printf("ulala"));
-	format_stack(a);
 	cmd = get_next_line(0);
 	while (cmd)
 	{
@@ -94,6 +84,27 @@ int	main(int ac, char **av)
 		cmd = get_next_line(0);
 	}
 	ft_checker(a, b);
+}
+
+int	main(int ac, char **av)
+{
+	t_table	*a;
+	t_table	*b;
+
+	if (ac < 2)
+		return (0);
+	a = init_table(malloc(sizeof(t_table)));
+	if (a == NULL)
+		return (write(2, "Error\n", 7));
+	b = init_table(malloc(sizeof(t_table)));
+	if (b == NULL)
+		return (free (a), write(2, "Error\n", 7));
+	if (ft_init_stack(++av, a))
+		return (ft_lstclear(&a->head), free (a), free (b), \
+	write(2, "Error\n", 7));
+	format_stack(a);
+	bonus_part(a, b);
 	ft_lstclear(&a->head);
 	free (a);
+	free (b);
 }

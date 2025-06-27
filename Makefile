@@ -41,20 +41,20 @@ ${NAME}: ${OBJ_FILES}
 	@echo "library created"
 
 bonus: lib bonus.c
-	${CC} ${CFLAGS} bonus.c ${NAME} -o checker
+	${CC} ${CFLAGS} bonus.c bonus.a -o checker
 	@touch bonus
 
 lib: ${OBJ_BONUS}
-	@ar rcs ${NAME} $?
+	@ar rcs bonus.a $?
 	@touch lib
 
 clean: 
-	@rm -f $(OBJ_BONUS) $(OBJ_FILES) 
+	@rm -f $(OBJ_BONUS) $(OBJ_FILES) ${NAME} bonus .bonus bonus.a
 	@rm -f lib
 	@echo "files removed"
 
 fclean: clean 
-	@rm -f ${NAME}
+	@rm -f push_swap checker
 	@echo "files really removed"
 
 re: fclean all

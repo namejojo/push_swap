@@ -38,7 +38,7 @@ static int	check(t_table *a)
 	while (temp != a->tail)
 	{
 		if (temp->value == a->tail->value)
-			return (ft_lstclear(&a->head), 1);
+			return (1);
 		temp = temp->next;
 	}
 	if (a->max == NULL || a->max->value < temp->value)
@@ -81,18 +81,18 @@ int	ft_init_stack(char **av, t_table *a)
 		{
 			a->head = ft_lstnew(*(av++), NULL);
 			if (a->head == NULL)
-				return (ft_lstclear(&a->head), 1);
+				return (1);
 			a->tail = a->head;
 		}
 		else if (a->head)
 		{
 			a->tail->next = ft_lstnew (*(av++), a->tail);
 			if (a->tail->next == NULL)
-				return (ft_lstclear(&a->head), 1);
+				return (1);
 			a->tail = a->tail->next;
 		}
 		if (check(a))
-			return (ft_lstclear(&a->head), 1);
+			return (1);
 	}
 	return (0);
 }

@@ -26,34 +26,44 @@ t_table	*init_table(t_table *a)
 
 // void print_value (t_table *a, t_table *b) // delete
 // {
-	// t_list	*temp;
-	// t_list	*temp2;
-	// 
-	// temp = a->head;
-	// temp2 = b->head;
-	// ft_printf("\nA\tB");
-	// ft_printf("\n");
-	// while (temp != NULL || temp2 != NULL)
-	// {
-		// if (temp)
-		// {
-			// ft_printf("%d", (int)temp->value);
-			// temp = temp->next;
-		// }
-		// else
-			// ft_printf("   ");
-		// ft_printf("\t   ");
-		// if (temp2)
-		// {
-			// ft_printf("%d\n", (int)temp2->value);
-			// temp2 = temp2->next;
-		// }
-		// else
-			// ft_printf("\n");
-	// }
-	// ft_printf("\n");
-	// ft_printf("--------------------------------\n");
+// 	t_list	*temp;
+// 	t_list	*temp2;
+// 	temp = a->head;
+// 	temp2 = b->head;
+// 	ft_printf("\nA\tB");
+// 	ft_printf("\n");
+// 	while (temp != NULL || temp2 != NULL)
+// 	{
+// 		if (temp)
+// 		{
+// 			ft_printf("%d", (int)temp->value);
+// 			temp = temp->next;
+// 		}
+// 		else
+// 			ft_printf("   ");
+// 		ft_printf("\t   ");
+// 		if (temp2)
+// 		{
+// 			ft_printf("%d\n", (int)temp2->value);
+// 			temp2 = temp2->next;
+// 		}
+// 		else
+// 			ft_printf("\n");
+// 	}
+// 	ft_printf("\n");
+// 	ft_printf("--------------------------------\n");
 // }
+
+int	stack_is_sorter(t_list *a)
+{
+	while (a->next != NULL)
+	{
+		if (a->value > a->next->value)
+			return (1);
+		a = a->next;
+	}
+	return (0);
+}
 
 int	main(int ac, char **av)
 {
@@ -67,11 +77,13 @@ int	main(int ac, char **av)
 		return (write(2, "Error\n", 7));
 	b = init_table(malloc(sizeof(t_table)));
 	if (b == NULL)
-		return (write(2, "Error\n", 7));
-	if (ft_init_stack(++av, a))
 		return (free (a), write(2, "Error\n", 7));
+	if (ft_init_stack(++av, a))
+		return (ft_lstclear(&a->head), free (a), free (b), \
+		write(2, "Error\n", 7));
 	format_stack(a);
-	ft_sort_stack(a, b);
+	if (stack_is_sorter(a->head))
+		ft_sort_stack(a, b);
 	ft_lstclear(&a->head);
 	free (a);
 	free (b);

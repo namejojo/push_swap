@@ -34,28 +34,16 @@ static void	organize_3(t_table *a)
 	rra(a);
 }
 
-void	listify(t_list *b)
-{
-	t_list	*next;
-
-	next = b->next;
-	while (next)
-	{
-		next->previous = b;
-		b = b->next;
-		next = b->next;
-	}
-}
-
 void	ft_sort_stack(t_table *a, t_table *b)
 {
 	if (a->size == 3)
 		return (organize_3(a));
 	if (a->size == 2 && a->head->value > a->head->next->value)
 		return (ra(a));
+	if (a->size == 2 || a->size == 1)
+		return ;
 	organize_to_b(a, b);
 	if (a->size == 3)
 		organize_3(a);
-	listify(b->head);
 	organize_to_a(a, b);
 }
